@@ -10,7 +10,7 @@
  *    /camera/processed_lowbw
  *    /camera/overlay
  *    /camera/overlay_lowbw
- *    /linepoints
+ *    /detect/Lane
  */
 //#include <signal.h>
 #include <stdio.h>
@@ -60,8 +60,6 @@ void configCallback(opencv_processor::LinedetectConfig &config, uint32_t level) 
 }
 
 /***************************************************************************************************************************/
-
-/**************************************************************************************************************************/
 
 // callback that is executet each time an image is sent to this node
 void imageCallback(const sensor_msgs::ImageConstPtr& msg) {

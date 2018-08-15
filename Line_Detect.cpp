@@ -46,6 +46,11 @@ int val_high;
 float centerX;
 int centerY;
 
+int detect_Img_x = 170;
+int detect_Img_y = 280;
+int detect_Img_height = 150;
+int detect_Img_width = 300;
+
 image_transport::Publisher pub_proc;
 
 // callback from dynamic_reconfigure
@@ -71,7 +76,7 @@ void imageCallback(const sensor_msgs::ImageConstPtr& msg) {
 
   cvtColor(raw, hsv, COLOR_BGR2HSV);
   
-  hsv = hsv(Rect(170, 330, 300, 150));
+  hsv = hsv(Rect(detect_Img_x, detect_Img_y, detect_Img_width, detect_Img_height));
   
   // color filter and process to smooth binary
   inRange(hsv, Scalar(hue_low, sat_low, val_low), Scalar(hue_high, sat_high, val_high), hsv_mono);
@@ -97,7 +102,8 @@ void imageCallback(const sensor_msgs::ImageConstPtr& msg) {
   
   cv::line(image, center, middleImg, Scalar(0, 0, 255), 2, 4, 0);
   cv::circle(image, middleImg, 5, Scalar(0, 0, 0), -1);
-  cv::circle(image, center, 5, Scalar(255, 0, 0), -1);  
+  cv::circle(image, center, 5, Scalar(255, 0, 0), -1);
+  cv::rectangle(image, cvPoint(170, 280), cvPoint(470, 430), cvScalar(0, 0, 255), 2, 4, 0 );
   
   vector<vector<cv::Point>> contours;
   cv::findContours(processed, contours, CV_RETR_TREE,CV_CHAIN_APPROX_SIMPLE, Point(170,330));
